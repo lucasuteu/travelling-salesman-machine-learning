@@ -80,13 +80,21 @@ def format_context_title(dataset_base, metric, selection_mode=None, max_instance
 
 def plot_overlay_hist(out_path, series, title, xlabel="Tour length"):
     plt.figure(figsize=(7, 5))
+    all_vals = [
+        np.asarray(values)
+        for _, values, _ in series
+        if values is not None and len(values) > 0
+    ]
+    bins = None
+    if all_vals:
+        bins = np.histogram_bin_edges(np.concatenate(all_vals), bins=30)
     for label, values, color in series:
         if values is None or len(values) == 0:
             continue
-        plt.hist(values, bins=30, alpha=0.5, label=label, color=color)
+        plt.hist(values, bins=bins, density=True, alpha=0.5, label=label, color=color)
     plt.title(title)
     plt.xlabel(xlabel)
-    plt.ylabel("Count")
+    plt.ylabel("Density")
     plt.legend()
     plt.tight_layout()
     plt.savefig(out_path)

@@ -204,8 +204,6 @@ data/
 test_data/
 checkpoints*/
 hist_data/
-hist_plots/
-visualizations/
 *.pt
 *.pth
 *.res
