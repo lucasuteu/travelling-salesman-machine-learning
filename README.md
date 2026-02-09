@@ -32,9 +32,8 @@ There are two main reasons to look at this approach instead of relying solely on
 ## How it works
 
 Instead of predicting a single solution (a tour) directly, the model learns a conditional probability distribution over tours:
-$$
-\pi \longmapsto p_\theta(\pi \mid x), \qquad \pi \in S_n.
-$$
+
+$$pi \longmapsto p_\theta(\pi \mid x), \qquad \pi \in S_n. $$
 
 Here:
 - $x = (x_1,\dots,x_n)$, with $x_i \in \mathbb{R}^2$, represents a TSP instance (a set of points)
@@ -45,9 +44,9 @@ The distribution is defined autoregressively: at each step, the model assigns pr
 ### Training objective
 
 The model is trained to minimize the expected tour length:
-$$
-\mathbb{E}_{\pi \sim p_\theta(\cdot \mid x)}\big[L(x,\pi)\big].
-$$
+
+
+$$\mathbb{E}_{\pi \sim p_\theta(\cdot \mid x)}\big[L(x,\pi)\big].$$
 
 The training pushes the probability mass toward shorter tours.
 
@@ -58,7 +57,7 @@ Instead, it learns a policy that tends to generate good (low-cost) tours in gene
 
 To obtain an actual tour, I decode from the learned distribution using either:
 - model greedy: always pick the most likely next city
-- best-of-$K$: sample $K$ tours and keep the shortest one
+- best-of-K : sample $K$ tours and keep the shortest one
 
 ---
 
@@ -111,7 +110,7 @@ To evaluate performance:
 
 I evaluated the learned model in two modes:
 - model greedy
-- best-of-$K$ sampling (with $K = 50$)
+- best-of-K sampling (with $K = 50$)
 
 ---
 
